@@ -38,13 +38,10 @@ public class Spawner : MonoBehaviour
         GameObject instance = Instantiate(prefab);
         instance.transform.position = new Vector2(Random.Range(minimumX,maximumX), transform.position.y);
 
-
         //Find inde
         string str = gameManager.selectedWord;
 
-
         var uniqueCharacters = str.Distinct().ToList();
-
 
         //Debug.Log(uniqueCharacters[0].ToString());
 
@@ -70,7 +67,7 @@ public class Spawner : MonoBehaviour
             {
                 if (sprites[i].name.ToLower() == uniqueCharacters[j].ToString())
                 {
-                    Sprite notRandomSprite = sprites[Random.Range(i, sprites.Length)];
+                    Sprite notRandomSprite = sprites[Random.Range(0, sprites.Length)];
                     //Debug.Log("Selected word prefab");
                     instance.GetComponent<SpriteRenderer>().sprite = notRandomSprite;
                 }

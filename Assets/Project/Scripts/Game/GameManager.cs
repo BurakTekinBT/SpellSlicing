@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Random Selected Words")]
     public TextAsset textFile;
-    public string[] lines;
-    private string randomLine;
     public string displayWord;
     [HideInInspector] public string selectedWord;
 
@@ -28,25 +26,14 @@ public class GameManager : MonoBehaviour
         SelectRandomWord();
         hpCount = hp.transform.childCount;
         displayWord = new string('_', selectedWord.Length);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        DisplayTextOnScreen();
-    }
-
-    void DisplayTextOnScreen()
-    {
-        displayText.text = displayWord;
+        UpdateWordDisplay();
     }
 
     /* CheckGameEnd : Oyunun bitip bitmediðini kontrol eder.
-         - str : alt satýr sorunu çözen kral deðiþken
-         - lines : Text dosyasý içerisindeki eleman sayýsý 
-         - selectedWord : Text dosyasý içerisinden rastgele bir elemaný tutar.
+        - Kelime bulunduysa win ekkraný gelir eðer.
+        - Kelime bulunamadan can sayýsý 0 a düþerse lose ekraný gelir
     */
-    public void CheckGameEnd(string selectedWord)
+    public void CheckGameEnd()
     {
         Debug.Log("CheckGameEnd Test => Current Word :" + displayWord + " selected word : " + selectedWord);
         if (hpCount <= 0)
@@ -60,12 +47,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateWordDisplay(string currentWord)
+    /*Bulunan kelimeyi ekrana yazdýrýr 
+     */
+    public void UpdateWordDisplay()
     {
-        displayText.text = currentWord;
-        displayWord = currentWord;
+        displayText.text = displayWord;
     }
-
            
     /* SelectRandomWord kendisine atanan metin belgesi üzerinden kelimeler seçer
              - str : alt satýr sorunu çözen kral deðiþken
@@ -82,7 +69,7 @@ public class GameManager : MonoBehaviour
             str = str.Replace("\r", "%");
             str = str.Replace("%%", "%");
 
-            lines = str.Split('%');         
+            string[] lines = str.Split('%');         
             selectedWord = lines[Random.Range(0, lines.Length)];
             Debug.Log("Selected word from text file : |" + selectedWord + "|" + "Selected Word Length : " + selectedWord.Length);
         }
@@ -99,8 +86,6 @@ public class GameManager : MonoBehaviour
     {
         hpCount--;
         Transform lastChild = hp.transform.GetChild(hpCount);
-        Destroy(lastChild.gameObject);
-        
-        Debug.Log(hpCount);
+        Destroy(lastChild.gameObject);      
     }
 }

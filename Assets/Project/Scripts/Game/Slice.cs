@@ -7,11 +7,9 @@ using UnityEngine.UI;
 public class Slice : MonoBehaviour
 {
     private string selectedWord;
-    private string currentWord;
     private bool gameEnded = false;
 
     public GameManager gameManager;
-    
 
     [Header("Slice Section")]
     public GameObject bladeTrailerPrefab;
@@ -25,14 +23,11 @@ public class Slice : MonoBehaviour
 
     void Start()
     {
-        /* Main Variables */
-        //currentWord = new string('_', selectedWord.Length);
         cam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
         circleCollider = GetComponent<CircleCollider2D>();
 
         selectedWord = gameManager.selectedWord;
-        //currentWord = new string('_', selectedWord.Length);
     }
 
     // Update is called once per frame
@@ -67,8 +62,6 @@ public class Slice : MonoBehaviour
         }
     }
 
-
-
     /* slicedLetter = Etkileþime geçilen nesnenin etiketi Cuttable ise onun spriteýnýn ismini tutar.
      */
     private void OnCollisionEnter2D(Collision2D collision)
@@ -86,7 +79,7 @@ public class Slice : MonoBehaviour
         if (gameEnded)
             return;
         
-        char guessedLetter = input.ToString().ToLower()[0];
+        char guessedLetter = input.ToLower()[0];
         bool letterFound = false;
 
         for (int i = 0; i < selectedWord.Length; i++)
@@ -106,7 +99,7 @@ public class Slice : MonoBehaviour
             Debug.Log("You SLICED wrong letter");
         }
        
-        gameManager.UpdateWordDisplay(gameManager.displayWord);
-        gameManager.CheckGameEnd(selectedWord);
+        gameManager.UpdateWordDisplay();
+        gameManager.CheckGameEnd();
     }
 }
