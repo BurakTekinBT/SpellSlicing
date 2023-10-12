@@ -67,10 +67,10 @@ public class Slice : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Check are we hit the cuttable object
-        if(collision.collider.tag == "Cuttable")
+        if (collision.collider.tag == "Cuttable")
         {
             //If we sliced the cuttable object send it name to CheckLetter()
-            slicedLetter = collision.transform.GetComponent<SpriteRenderer>().sprite.name.ToString();        
+            slicedLetter = collision.transform.GetComponent<SpriteRenderer>().sprite.name.ToString(); 
             CheckLetter(slicedLetter);
         }
     }
@@ -88,6 +88,7 @@ public class Slice : MonoBehaviour
             {
                 gameManager.displayWord = gameManager.displayWord.Substring(0, i) + guessedLetter + gameManager.displayWord.Substring(i + 1);
                 letterFound = true;
+                
                 Debug.Log("You found! : " + guessedLetter );
             }
         }

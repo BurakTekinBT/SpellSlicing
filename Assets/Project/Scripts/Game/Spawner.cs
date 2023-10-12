@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    #region Fields
     [Header("Target")]
-    public GameObject prefab;
+    [SerializeField] private GameObject prefab;
 
     [Header("Gameplay")]
     public float minimumX;
@@ -26,19 +27,34 @@ public class Spawner : MonoBehaviour
     int indexOfFoundLetter;
 
     char character;
+    #endregion
 
+    #region Awake, Start, Contructor, Update
     // Start is called before the first frame update
     void Start()
     {
         selectedw = gameManager.selectedWord;
     }
+    void Update()
+    {
+        if (time <= 0)
+        {
+            Spawn();
+            time = startTime;
+        }
+        else
+        {
+            time -= Time.deltaTime;
+        }
+    }
+    #endregion
 
-    private void Spawn()
+    #region Private Variables
+    private void Spawn() //Spawner Method
     {
         GameObject instance = Instantiate(prefab);
         instance.transform.position = new Vector2(Random.Range(minimumX,maximumX), transform.position.y);
 
-        //Find inde
         string str = gameManager.selectedWord;
 
         var uniqueCharacters = str.Distinct().ToList();
@@ -68,7 +84,7 @@ public class Spawner : MonoBehaviour
                 if (sprites[i].name.ToLower() == uniqueCharacters[j].ToString())
                 {
                     Sprite notRandomSprite = sprites[Random.Range(0, sprites.Length)];
-                    //Debug.Log("Selected word prefab");
+
                     instance.GetComponent<SpriteRenderer>().sprite = notRandomSprite;
                 }
             }
@@ -79,17 +95,5 @@ public class Spawner : MonoBehaviour
         //Sprite randomSprite = sprites[Random.Range(0, sprites.Length)];
         //instance.GetComponent<SpriteRenderer>().sprite = randomSprite;
     }
-
-    void Update()
-    {
-        if(time <= 0)
-        {
-            Spawn();
-            time = startTime;
-        }
-        else
-        {
-            time -= Time.deltaTime;
-        }
-    }
+    #endregion
 }

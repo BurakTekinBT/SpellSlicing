@@ -7,10 +7,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region Fields
     [Header("UI Section")]
-    [SerializeField] TextMeshProUGUI displayText;
-    [SerializeField] GameObject winScreen;
-    [SerializeField] GameObject loseScreen;
+    [SerializeField] TextMeshProUGUI _displayText;
+    [SerializeField] GameObject _winScreen;
+    [SerializeField] GameObject _loseScreen;
 
     [Header("Random Selected Words")]
     public TextAsset textFile;
@@ -20,7 +21,9 @@ public class GameManager : MonoBehaviour
     [Header("HP Section")]
     public GameObject hp;
     [HideInInspector] public int hpCount;
+    #endregion
 
+    #region Awake, Start, Contructor, Update
     void Start()
     {  
         SelectRandomWord();
@@ -28,32 +31,27 @@ public class GameManager : MonoBehaviour
         displayWord = new string('_', selectedWord.Length);
         UpdateWordDisplay();
     }
+    #endregion
 
-    /* CheckGameEnd : Oyunun bitip bitmediðini kontrol eder.
-        - Kelime bulunduysa win ekkraný gelir eðer.
-        - Kelime bulunamadan can sayýsý 0 a düþerse lose ekraný gelir
-    */
-    public void CheckGameEnd()
+    #region Public Funtions
+    public void CheckGameEnd() //Is game end with successfully or failed.
     {
         Debug.Log("CheckGameEnd Test => Current Word :" + displayWord + " selected word : " + selectedWord);
         if (hpCount <= 0)
         {
-            loseScreen.SetActive(true);
+            _loseScreen.SetActive(true);
             Time.timeScale = 0f;
         }
         if (displayWord == selectedWord)
         {
-            winScreen.SetActive(true);
+            _winScreen.SetActive(true);
         }
     }
-
-    /*Bulunan kelimeyi ekrana yazdýrýr 
-     */
-    public void UpdateWordDisplay()
+    public void UpdateWordDisplay() //Ekranda gözükecek olan kelime
     {
-        displayText.text = displayWord;
+        _displayText.text = displayWord;
     }
-           
+          
     /* SelectRandomWord kendisine atanan metin belgesi üzerinden kelimeler seçer
              - str : alt satýr sorunu çözen kral deðiþken
              - lines : Text dosyasý içerisindeki eleman sayýsý 
@@ -63,14 +61,14 @@ public class GameManager : MonoBehaviour
     {       
         if(textFile != null)
         {
-            string str = textFile.text;
+            string _str = textFile.text;
 
-            str = str.Replace("\n", "%");
-            str = str.Replace("\r", "%");
-            str = str.Replace("%%", "%");
+            _str = _str.Replace("\n", "%");
+            _str = _str.Replace("\r", "%");
+            _str = _str.Replace("%%", "%");
 
-            string[] lines = str.Split('%');         
-            selectedWord = lines[Random.Range(0, lines.Length)];
+            string[] _lines = _str.Split('%');         
+            selectedWord = _lines[Random.Range(0, _lines.Length)];
             Debug.Log("Selected word from text file : |" + selectedWord + "|" + "Selected Word Length : " + selectedWord.Length);
         }
         else {
@@ -78,14 +76,11 @@ public class GameManager : MonoBehaviour
         }
         return selectedWord;
     }
-
-    /* LoseHP(), Hatalý harfe temas ettiðimizde çaýýþacak ve ekrandaki kalplerden birini yok edecek.
-      lastChild = hp nesnesinin içindeki hp childlarýný tutar. 
-     */
-    public void LoseHP()
+    public void LoseHP() //Hatalý harfe temas ettiðimizde çalýþacak ve hp nesnesinin içindeki hp childlarýndan birini yok edecek.
     {
         hpCount--;
         Transform lastChild = hp.transform.GetChild(hpCount);
         Destroy(lastChild.gameObject);      
     }
+    #endregion
 }
