@@ -10,4 +10,5 @@ public class StartingGame : MonoBehaviour
         SceneManager.LoadScene(name);
         Time.timeScale = 1.0f;
     }
+
 }

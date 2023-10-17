@@ -545,6 +545,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Time_Tapper_UI_1
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 1010
+        width: 240
+        height: 239
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5e8108efdcc606459f9d71eff6ebdb8
+      internalID: 453651269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Time_Tapper_UI_6
+      rect:
+        serializedVersion: 2
+        x: 1502
+        y: 1321
+        width: 329
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 044bd934ea46b024794cf827120c2bb5
+      internalID: 446146565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Time_Tapper_UI_8
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 1236
+        width: 330
+        height: 303
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 150, y: 126, z: 147, w: 115}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f30d25df66865394ba42ed4e2a4df988
+      internalID: 1490856442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
