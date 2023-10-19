@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
     [Header("Gameplay")]
     public float minimumX;
     public float maximumX;
+    public float maximumY;
 
     private float time;
     public float startTime;
@@ -23,14 +24,9 @@ public class Spawner : MonoBehaviour
     public GameManager gameManager;
     public GameObject sliceManager;
     public string selectedw;
-    private string selectedchar;
-    int indexOfFoundLetter;
-
-    char character;
     #endregion
 
     #region Awake, Start, Contructor, Update
-    // Start is called before the first frame update
     void Start()
     {
         selectedw = gameManager.selectedWord;
@@ -53,15 +49,13 @@ public class Spawner : MonoBehaviour
     private void Spawn() //Spawner Method
     {
         GameObject instance = Instantiate(prefab);
-        instance.transform.position = new Vector2(Random.Range(minimumX,maximumX), transform.position.y);
+        instance.transform.position = new Vector2((transform.position.x + (Random.Range(minimumX,maximumX))), maximumY);
 
         string str = gameManager.selectedWord;
 
         var uniqueCharacters = str.Distinct().ToList();
 
-        //Debug.Log(uniqueCharacters[0].ToString());
-
-        for (int i = 0; i < sprites.Length; i++)
+        /*for (int i = 0; i < sprites.Length; i++)
         {
             //Debug.Log(sprites[i].name);
             for(int j = 0; j < uniqueCharacters.Count; j++)
@@ -70,11 +64,12 @@ public class Spawner : MonoBehaviour
                 {
                     // Sprite bulundu
                     Debug.Log("Sprite bulundu: " + sprites[i].name + "indexi : " + i);
+
                     break;
                 }
             }
 
-        }
+        }*/
 
         //Generate random letter releated for selected word
         for (int i = 0; i < sprites.Length; i++)

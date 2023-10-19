@@ -17,7 +17,7 @@ public class Slice : MonoBehaviour
     CircleCollider2D circleCollider;
     GameObject currentBladeTrailer;
     private string slicedLetter;
- 
+    bool IsSlicing;
     Rigidbody2D rb;
     Camera cam;
 
@@ -36,30 +36,55 @@ public class Slice : MonoBehaviour
         isCuttingOrNotCutting();
     }
 
+    IEnumerator spawnTimeTrail()
+    {
+        if (!IsSlicing)
+        {
+            IsSlicing = true;
+            yield return new WaitForSeconds(.11f);
+            currentBladeTrailer = Instantiate(bladeTrailerPrefab, transform);
+            IsSlicing = false;
+        }
+        
+
+    }
+
     void isCuttingOrNotCutting()
     {
+
+        if (isCutting)
+        {
+            //UpdateCut();
+           
+            rb.position = cam.ScreenToWorldPoint(Input.mousePosition);
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
+            if(currentBladeTrailer != null)
+            {
+                Destroy(currentBladeTrailer);
+            }
+            
             //StartCutting();
             isCutting = true;
-            currentBladeTrailer = Instantiate(bladeTrailerPrefab, transform);
+            rb.position = cam.ScreenToWorldPoint(Input.mousePosition);
+            //currentBladeTrailer = Instantiate(bladeTrailerPrefab, transform);
+            StartCoroutine(spawnTimeTrail());
             circleCollider.enabled = true;
+            
         }
 
         else if (Input.GetMouseButtonUp(0))
         {
             //StopCutting();
             isCutting = false;
-            currentBladeTrailer.transform.SetParent(null);
+            //currentBladeTrailer.transform.SetParent(null);
             Destroy(currentBladeTrailer, 2f);
             circleCollider.enabled = false;
         }
 
-        if (isCutting)
-        {
-           //UpdateCut();
-            rb.position = cam.ScreenToWorldPoint(Input.mousePosition);
-        }
+   
     }
 
     /* slicedLetter = Etkileþime geçilen nesnenin etiketi Cuttable ise onun spriteýnýn ismini tutar.

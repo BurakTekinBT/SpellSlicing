@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     #region Fields
     [Header("UI Section")]
-    [SerializeField] TextMeshProUGUI _displayText;
+    public TextMeshProUGUI _displayText;
     [SerializeField] GameObject _winScreen;
     [SerializeField] GameObject _loseScreen;
 
@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Public Funtions
     public void CheckGameEnd() //Is game end with successfully or failed.
     {
         Debug.Log("CheckGameEnd Test => Current Word :" + displayWord + " selected word : " + selectedWord);
@@ -82,5 +81,4 @@ public class GameManager : MonoBehaviour
         Transform lastChild = hp.transform.GetChild(hpCount);
         Destroy(lastChild.gameObject);      
     }
-    #endregion
 }
