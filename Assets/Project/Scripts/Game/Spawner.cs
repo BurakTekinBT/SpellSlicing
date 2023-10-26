@@ -18,7 +18,8 @@ public class Spawner : MonoBehaviour
     public float startTime;
 
     [Header("Visuals")]
-    public Sprite[] sprites;
+    //public Sprite[] sprites;
+    public List<Sprite> spriteList;
 
     [Header("Spawn Letters")]
     public GameManager gameManager;
@@ -46,6 +47,7 @@ public class Spawner : MonoBehaviour
     #endregion
 
     #region Private Variables
+
     private void Spawn() //Spawner Method
     {
         GameObject instance = Instantiate(prefab);
@@ -55,23 +57,22 @@ public class Spawner : MonoBehaviour
 
         var uniqueCharacters = str.Distinct().ToList();
 
-        /*for (int i = 0; i < sprites.Length; i++)
+        for (int i = 0; i < spriteList.Count; i++)
         {
-            //Debug.Log(sprites[i].name);
-            for(int j = 0; j < uniqueCharacters.Count; j++)
+            for (int j = 0; j < uniqueCharacters.Count; j++)
             {
-                if (sprites[i].name.ToLower() == uniqueCharacters[0].ToString())
+                if (spriteList[i].name.ToLower() == uniqueCharacters[j].ToString())
                 {
-                    // Sprite bulundu
-                    Debug.Log("Sprite bulundu: " + sprites[i].name + "indexi : " + i);
-
-                    break;
+                    Sprite randomSprite = spriteList[Random.Range(0, spriteList.Count)];
+                    Debug.Log(uniqueCharacters.Count);
+                    instance.GetComponent<SpriteRenderer>().sprite = randomSprite;
                 }
             }
 
-        }*/
+        }
 
-        //Generate random letter releated for selected word
+        //Çalýþýyot
+        /*
         for (int i = 0; i < sprites.Length; i++)
         {
             for (int j =0; j<uniqueCharacters.Count; j++)
@@ -84,11 +85,24 @@ public class Spawner : MonoBehaviour
                 }
             }
             
-        }
+        }*/
 
         //Generate random letter 
         //Sprite randomSprite = sprites[Random.Range(0, sprites.Length)];
         //instance.GetComponent<SpriteRenderer>().sprite = randomSprite;
     }
+
+   public void RemoveFromList(char guessedLetter)
+    {
+
+        foreach(Sprite c in spriteList)
+        {
+            if(c.name == guessedLetter.ToString())
+            {
+                spriteList.Remove(c);
+            }
+        }
+    }
+
     #endregion
 }

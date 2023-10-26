@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class Slice : MonoBehaviour
 {
+    [Header("")]
     private string selectedWord;
     private bool gameEnded = false;
 
     public GameManager gameManager;
-
+    public Spawner spawner;
     [Header("Slice Section")]
     public GameObject bladeTrailerPrefab;
     bool isCutting = false;
@@ -44,9 +45,7 @@ public class Slice : MonoBehaviour
             yield return new WaitForSeconds(.11f);
             currentBladeTrailer = Instantiate(bladeTrailerPrefab, transform);
             IsSlicing = false;
-        }
-        
-
+        }     
     }
 
     void isCuttingOrNotCutting()
@@ -115,6 +114,9 @@ public class Slice : MonoBehaviour
                 letterFound = true;
                 
                 Debug.Log("You found! : " + guessedLetter );
+                gameManager.UpdateWordDisplay();
+                gameManager.CheckGameEnd();
+                spawner.RemoveFromList(guessedLetter);
             }
         }
 
@@ -123,9 +125,8 @@ public class Slice : MonoBehaviour
             gameManager.LoseHP();
             Camera.main.GetComponent<CameraShake>().Shake();
             Debug.Log("You SLICED wrong letter");
+            gameManager.CheckGameEnd();
         }
        
-        gameManager.UpdateWordDisplay();
-        gameManager.CheckGameEnd();
     }
 }

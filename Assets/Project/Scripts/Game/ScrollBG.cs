@@ -17,11 +17,9 @@ public class ScrollBG : MonoBehaviour
         dif = -width + leftpos;
     }
     void Update()
-    {
-        
+    {       
         transform.position = new Vector2(transform.position.x - _slideSpeed * Time.deltaTime, transform.position.y);
 
-        Debug.Log("width : " + width + " did : " + dif);
         if (transform.position.x < dif)
         {
             Debug.Log("Sýnýf aþýldý");
