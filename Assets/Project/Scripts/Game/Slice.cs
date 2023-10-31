@@ -28,7 +28,7 @@ public class Slice : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         circleCollider = GetComponent<CircleCollider2D>();
 
-        selectedWord = gameManager.selectedWord;
+        selectedWord = WordManager.Instance.selectedWord;
     }
 
     // Update is called once per frame
@@ -50,7 +50,6 @@ public class Slice : MonoBehaviour
 
     void isCuttingOrNotCutting()
     {
-
         if (isCutting)
         {
             //UpdateCut();
@@ -70,8 +69,7 @@ public class Slice : MonoBehaviour
             rb.position = cam.ScreenToWorldPoint(Input.mousePosition);
             //currentBladeTrailer = Instantiate(bladeTrailerPrefab, transform);
             StartCoroutine(spawnTimeTrail());
-            circleCollider.enabled = true;
-            
+            circleCollider.enabled = true;           
         }
 
         else if (Input.GetMouseButtonUp(0))
@@ -82,8 +80,6 @@ public class Slice : MonoBehaviour
             Destroy(currentBladeTrailer, 2f);
             circleCollider.enabled = false;
         }
-
-   
     }
 
     /* slicedLetter = Etkileþime geçilen nesnenin etiketi Cuttable ise onun spriteýnýn ismini tutar.
@@ -93,7 +89,7 @@ public class Slice : MonoBehaviour
         //Check are we hit the cuttable object
         if (collision.collider.tag == "Cuttable")
         {
-            //If we sliced the cuttable object send it name to CheckLetter()
+            collision.gameObject.GetComponent<Collider2D>().enabled = false;
             slicedLetter = collision.transform.GetComponent<SpriteRenderer>().sprite.name.ToString(); 
             CheckLetter(slicedLetter);
         }
@@ -116,17 +112,20 @@ public class Slice : MonoBehaviour
                 Debug.Log("You found! : " + guessedLetter );
                 gameManager.UpdateWordDisplay();
                 gameManager.CheckGameEnd();
-                spawner.RemoveFromList(guessedLetter);
+                //spawner.RemoveFromList(guessedLetter);
             }
+            
         }
 
         if (!letterFound)
-        {           
-            gameManager.LoseHP();
+        {
+            HPManager.Instance.LoseHP();
+            //gameManager.LoseHP();
             Camera.main.GetComponent<CameraShake>().Shake();
             Debug.Log("You SLICED wrong letter");
             gameManager.CheckGameEnd();
         }
-       
+
+        //spawner.RemoveFromList(guessedLetter);
     }
 }

@@ -7,19 +7,17 @@ public class HPManager : MonoBehaviour
     [Header("HP")]
     public GameObject hp;
     [HideInInspector] public int hpCount;
+    public static HPManager Instance;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         hpCount = hp.transform.childCount;
     }
 
-    private void CheckHP()
-    {
-        if (hpCount <= 0)
-        {
-            Time.timeScale = 0f;
-        }
-    }
     public void LoseHP() //Hatalý harfe temas ettiðimizde çalýþacak ve hp nesnesinin içindeki hp childlarýndan birini yok edecek.
     {
         hpCount--;
