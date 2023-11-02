@@ -13,11 +13,12 @@ public class WordManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        SelectRandomWord();
     }
 
     void Start()
     {
-        SelectRandomWord();
+       
     }
 
     /* SelectRandomWord : Select Random Word from releate text file
@@ -45,4 +46,6 @@ public class WordManager : MonoBehaviour
         }
         return selectedWord;
     }
+
+
 }

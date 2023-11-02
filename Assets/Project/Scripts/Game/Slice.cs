@@ -21,6 +21,7 @@ public class Slice : MonoBehaviour
     bool IsSlicing;
     Rigidbody2D rb;
     Camera cam;
+    char guessedLetter;
 
     void Start()
     {
@@ -30,8 +31,6 @@ public class Slice : MonoBehaviour
 
         selectedWord = WordManager.Instance.selectedWord;
     }
-
-    // Update is called once per frame
     void Update()
     {
         isCuttingOrNotCutting();
@@ -64,19 +63,15 @@ public class Slice : MonoBehaviour
                 Destroy(currentBladeTrailer);
             }
             
-            //StartCutting();
             isCutting = true;
             rb.position = cam.ScreenToWorldPoint(Input.mousePosition);
-            //currentBladeTrailer = Instantiate(bladeTrailerPrefab, transform);
             StartCoroutine(spawnTimeTrail());
             circleCollider.enabled = true;           
         }
 
         else if (Input.GetMouseButtonUp(0))
         {
-            //StopCutting();
             isCutting = false;
-            //currentBladeTrailer.transform.SetParent(null);
             Destroy(currentBladeTrailer, 2f);
             circleCollider.enabled = false;
         }
@@ -92,6 +87,7 @@ public class Slice : MonoBehaviour
             collision.gameObject.GetComponent<Collider2D>().enabled = false;
             slicedLetter = collision.transform.GetComponent<SpriteRenderer>().sprite.name.ToString(); 
             CheckLetter(slicedLetter);
+            spawner.RemoveFromList(guessedLetter);
         }
     }
     public void CheckLetter(string input)
@@ -99,7 +95,7 @@ public class Slice : MonoBehaviour
         if (gameEnded)
             return;
         
-        char guessedLetter = input.ToLower()[0];
+        guessedLetter = input.ToLower()[0];
         bool letterFound = false;
 
         for (int i = 0; i < selectedWord.Length; i++)
@@ -112,7 +108,7 @@ public class Slice : MonoBehaviour
                 Debug.Log("You found! : " + guessedLetter );
                 gameManager.UpdateWordDisplay();
                 gameManager.CheckGameEnd();
-                //spawner.RemoveFromList(guessedLetter);
+                
             }
             
         }
