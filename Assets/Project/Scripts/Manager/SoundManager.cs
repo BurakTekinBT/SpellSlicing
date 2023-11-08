@@ -11,11 +11,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip slicedSound;
     public AudioClip failSliced;
     public AudioClip successSliced;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+    private bool isMuted = false;
+
 
     public void PlaySlashSoundFX()
     {
@@ -27,15 +25,19 @@ public class SoundManager : MonoBehaviour
         
     }
 
-    public void PlayBackgroundMusic(float volume = 1f)
+    public void OnBackgroundButtonPressed()
     {
-        audioSource.PlayOneShot(backgroundMusic, volume);
-    }
+        if (!isMuted)
+        {
+            isMuted = true;
+            AudioListener.pause = true;
+        }
+        else
+        {
+            isMuted = false;
+            AudioListener.pause = false;
+        }
 
-    public void StopBackgroundMusic(float volume = 0f)
-    {
-        audioSource.PlayOneShot(backgroundMusic, volume);
     }
-
 
 }

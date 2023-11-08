@@ -96,6 +96,7 @@ public class Slice : MonoBehaviour
             return;
         
         guessedLetter = input.ToLower()[0];
+        
         bool letterFound = false;
 
         for (int i = 0; i < selectedWord.Length; i++)
@@ -109,8 +110,7 @@ public class Slice : MonoBehaviour
                 gameManager.UpdateWordDisplay();
                 gameManager.CheckGameEnd();
                 
-            }
-            
+            }         
         }
 
         if (!letterFound)

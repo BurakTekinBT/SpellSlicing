@@ -17,16 +17,12 @@ public class GameManager : MonoBehaviour
     public string displayWord;
     private string selectedWord;
 
-    [Header("HP Section")]
-    public GameObject hp;
-    [HideInInspector] public int hpCount;
     #endregion
 
     #region Awake, Start, Contructor, Update
     void Start()
     {
         selectedWord = WordManager.Instance.selectedWord;
-        hpCount = HPManager.Instance.hpCount;
         displayWord = new string('_', selectedWord.Length);
         UpdateWordDisplay();
     }

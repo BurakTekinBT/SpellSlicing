@@ -16,11 +16,6 @@ public class WordManager : MonoBehaviour
         SelectRandomWord();
     }
 
-    void Start()
-    {
-       
-    }
-
     /* SelectRandomWord : Select Random Word from releate text file
             - lines : Text dosyasý içerisindeki eleman sayýsý 
             - selectedWord : Select Random Word from releate text file as a variable

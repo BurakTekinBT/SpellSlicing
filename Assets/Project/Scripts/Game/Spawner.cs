@@ -61,8 +61,7 @@ public class Spawner : MonoBehaviour
         uniqueCharacters = str.Distinct().ToList();
         if (!isUniqueListCreated)
         {
-            AddToNewList();
-            
+            AddToNewList();       
         }
 
         if(Random.Range(0f, 1f) >= 0.2f)
@@ -70,6 +69,7 @@ public class Spawner : MonoBehaviour
             Sprite randomSprite = spriteList[Random.Range(0, spriteList.Count)];
             instance.GetComponent<SpriteRenderer>().sprite = randomSprite;
         }
+
         else
         {
             Sprite randomSprite2 = newSpriteList[Random.Range(0, newSpriteList.Count)];
